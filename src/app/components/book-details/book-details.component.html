@@ -1,0 +1,67 @@
+<div class="book-details-container">
+  <button class="btn-back" (click)="goBack()">← Retour à la liste</button>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Chargement des détails du livre...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && book.title" class="book-details">
+    <div class="book-details-header">
+      <div class="book-cover-large">
+        <img
+          [src]="getCoverUrl(book.covers ? book.covers[0] : null)"
+          [alt]="book.title"
+          class="cover-image-large"
+        />
+      </div>
+
+      <div class="book-details-info">
+        <h1 class="book-title">{{ book.title }}</h1>
+
+        <p class="book-subtitle" *ngIf="book.subtitle">
+          <strong>Sous-titre:</strong> {{ book.subtitle }}
+        </p>
+
+        <p class="book-publish-year" *ngIf="book.first_publish_date">
+          <strong>Année de première édition:</strong> {{ book.first_publish_date }}
+        </p>
+
+        <p class="book-languages" *ngIf="book.languages && book.languages.length">
+          <strong>Langues:</strong> {{ book.languages.join(', ') }}
+        </p>
+
+        <p class="book-isbn" *ngIf="book.isbn">
+          <strong>ISBN:</strong> {{ book.isbn }}
+        </p>
+
+        <p class="book-pages" *ngIf="book.number_of_pages">
+          <strong>Nombre de pages:</strong> {{ book.number_of_pages }}
+        </p>
+
+        <p class="book-key">
+          <strong>ID du livre:</strong> {{ book.key }}
+        </p>
+      </div>
+    </div>
+
+    <div class="book-description" *ngIf="book.description">
+      <h2>Description</h2>
+      <p>
+        {{ book.description.value || book.description }}
+      </p>
+    </div>
+
+    <div class="book-subjects" *ngIf="book.subjects && book.subjects.length">
+      <h2>Sujets</h2>
+      <div class="subject-tags">
+        <span class="subject-tag" *ngFor="let subject of book.subjects">
+          {{ subject }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

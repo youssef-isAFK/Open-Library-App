@@ -1,0 +1,39 @@
+<div class="book-list-container">
+  <app-search-bar (search)="onSearch($event)" (surprise)="onSurprise()"></app-search-bar>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Chargement des livres...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div class="books-grid">
+    <div *ngFor="let book of filteredBooks" class="book-card" (click)="viewBookDetails(book)">
+      <div class="book-cover">
+        <img
+          [src]="getCoverUrl(book.cover_id)"
+          [alt]="book.title"
+          class="cover-image"
+        />
+      </div>
+      <div class="book-info">
+        <h3 class="book-title">{{ book.title }}</h3>
+        <p class="book-author" *ngIf="book.authors && book.authors.length">
+          <strong>Auteur:</strong> {{ book.authors[0].name }}
+        </p>
+        <p class="book-year" *ngIf="book.first_publish_year">
+          <strong>Année:</strong> {{ book.first_publish_year }}
+        </p>
+        <p class="book-edition" *ngIf="book.edition_count">
+          <strong>Éditions:</strong> {{ book.edition_count }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && filteredBooks.length === 0" class="no-results">
+    <p>Aucun livre trouvé selon vos critères de recherche.</p>
+  </div>
+</div>

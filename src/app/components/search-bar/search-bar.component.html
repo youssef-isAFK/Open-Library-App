@@ -1,0 +1,34 @@
+<div class="search-bar">
+  <div class="search-container">
+    <div class="search-field">
+      <label for="title-search">Rechercher par titre:</label>
+      <input
+        id="title-search"
+        type="text"
+        [(ngModel)]="searchTitle"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Entrez le titre du livre"
+      />
+    </div>
+
+    <div class="search-field">
+      <label for="year-search">Année de première édition:</label>
+      <input
+        id="year-search"
+        type="number"
+        [(ngModel)]="searchYear"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Entrez l'année"
+      />
+    </div>
+
+    <div class="button-group">
+      <button (click)="onSurprise()" class="btn btn-surprise" title="Découvrir un livre aléatoire">
+        Surprise
+      </button>
+      <button (click)="resetSearch()" class="btn btn-reset">
+        Réinitialiser
+      </button>
+    </div>
+  </div>
+</div>
